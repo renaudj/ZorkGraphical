@@ -1,10 +1,12 @@
 package me.tech.ZorkGraphical.entity;
 
 
+import me.tech.ZorkGraphical.Zork;
 import me.tech.ZorkGraphical.items.Inventory;
 import me.tech.ZorkGraphical.items.InventorySlotType;
 import me.tech.ZorkGraphical.items.Item;
 import me.tech.ZorkGraphical.items.Weapon;
+import me.tech.ZorkGraphical.utils.Experience;
 
 public abstract class EntityLiving {
     private String name;

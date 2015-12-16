@@ -8,16 +8,56 @@ import me.tech.ZorkGraphical.items.Inventory;
 import me.tech.ZorkGraphical.items.Item;
 import me.tech.ZorkGraphical.items.Weapon;
 import me.tech.ZorkGraphical.room.Room;
+import me.tech.ZorkGraphical.utils.Experience;
 
 public class Player extends EntityLiving {
     private Inventory inventory;
     private Room currentRoom;
     private Object currentView = null;
-    private int hp;
-    private int maxHp;
+    private int exp;
+    private int level;
 
     public Player() {
         super("", 100);
+    }
+
+    public int getExp(){
+        return exp;
+    }
+
+    public void setExp(int exp){
+        this.exp = exp;
+    }
+
+    public void addExp(int exp){
+        int needed = Experience.getRequiredExpForLevel(level);
+        this.exp += exp;
+
+        if(this.exp >= needed){
+        int remainder = this.exp - needed;
+            if(remainder >= 0){
+                incrementLevel();
+                setExp(remainder);
+                Zork.getInstance().println("Level up!");
+            }
+        }
+        Zork.getInstance().getGuiManager().updateExp(level, this.exp);
+    }
+
+    public int getLevel(){
+        return this.level;
+    }
+
+    public void setLevel(int level){
+        this.level = level;
+    }
+
+    public void incrementLevel(){
+        level++;
+    }
+
+    public void decrementLevel(){
+        level--;
     }
 
     public Room getCurrentRoom() {

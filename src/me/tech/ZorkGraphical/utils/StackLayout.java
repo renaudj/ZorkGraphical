@@ -1,4 +1,4 @@
-package me.tech.ZorkGraphical;
+package me.tech.ZorkGraphical.utils;
 
 import java.awt.*;
 

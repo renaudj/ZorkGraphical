@@ -11,11 +11,12 @@ import me.tech.ZorkGraphical.items.*;
 import me.tech.ZorkGraphical.room.Direction;
 import me.tech.ZorkGraphical.room.OnEnterRoomListener;
 import me.tech.ZorkGraphical.room.Room;
+import me.tech.ZorkGraphical.utils.Experience;
+import me.tech.ZorkGraphical.utils.GUIManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by renaudj on 12/14/15.
@@ -76,8 +77,9 @@ public class Zork {
     private EventExecutor events;
     private GUIManager guiManager;
 
+    public boolean debug  = true;
+
     public Zork(){
-        this.guiManager = new GUIManager(this);
 
         instance = this;
         commandHandler = new CommandHandler(this);
@@ -86,8 +88,14 @@ public class Zork {
         events.registerListener(new PlayerListener());
         registerCommands();
         setRoomExits();
+        this.guiManager = new GUIManager(this);
         populateRooms();
         start();
+
+    }
+
+    public HashMap<String, Recipe> getRecipes(){
+        return recipes;
     }
 
     public static Zork getInstance() {
@@ -120,10 +128,15 @@ public class Zork {
 
         Zork.getInstance().println(Lang.intro);
         player.goToRoom(room0);
+        player.setLevel(1);
+        for(int i = 1; i <= 10; i++){
+            println(i + " - " + Experience.getRequiredExpForLevel(i));
+        }
+        getGuiManager().updateExp(player.getLevel(), player.getExp());
     }
 
     public void registerCommands() {
-        commandHandler.register("attack", new Command() {
+        commandHandler.register("attack", "<Character/Enemy> - Attacks specified Character/Enemy with equipped items, prioritizing the right hand", new Command() {
 
             public boolean onCommand(String command, String[] args) {
                 if (args.length > 0) {
@@ -140,7 +153,7 @@ public class Zork {
             }
 
         });
-        commandHandler.register("use", new Command() {
+        commandHandler.register("use", "<Item> - Activates specified item's generic ability", new Command() {
 
             public boolean onCommand(String command, String[] args) {
                 if (args.length == 1) {
@@ -159,7 +172,7 @@ public class Zork {
 
         });
 
-        commandHandler.register("eat", new Command() {
+        commandHandler.register("eat", "<Food> - Eats specified food item", new Command() {
 
             public boolean onCommand(String command, String[] args) {
                 if (args.length > 0) {
@@ -176,16 +189,17 @@ public class Zork {
             }
 
         });
-        commandHandler.register("quit", new Command() {
+        commandHandler.register("quit", "Quit the game", new Command() {
 
             public boolean onCommand(String command, String[] args) {
                 running = false;
                 Zork.getInstance().println("Goodbye!");
+                System.exit(0);
                 return true;
             }
 
         });
-        commandHandler.register("craft", new Command() {
+        commandHandler.register("craft", "<Item> - Crafts specified item", new Command() {
 
             public boolean onCommand(String command, String[] args) {
                 String s = "";
@@ -196,7 +210,6 @@ public class Zork {
                 for (String st : recipes.keySet()) {
                     if (st.equalsIgnoreCase(s)) {
                         recipes.get(s.toLowerCase()).craft(player);
-                        Zork.getInstance().println("Recipe exists");
                         return true;
                     }
                 }
@@ -205,7 +218,7 @@ public class Zork {
             }
 
         });
-        commandHandler.register("unequip", new Command() {
+        commandHandler.register("unequip", "[right/left] - Unequips specified slot, otherwise all slots", new Command() {
 
             public boolean onCommand(String command, String[] args) {
                 if (args.length == 1) {
@@ -227,7 +240,7 @@ public class Zork {
             }
 
         });
-        commandHandler.register("go", new Command() {
+        commandHandler.register("go", "<Direction> - Moves you to the room in the specified direction", new Command() {
 
             public boolean onCommand(String command, String[] args) {
                 if (args.length == 1) {
@@ -247,7 +260,7 @@ public class Zork {
                 return false;
             }
         });
-        commandHandler.register("equip", new Command() {
+        commandHandler.register("equip", "<Item> <Slot> - Equips specified item to specified slot", new Command() {
 
             public boolean onCommand(String command, String[] args) {
                 if (args.length > 0) {
@@ -286,7 +299,7 @@ public class Zork {
             }
 
         });
-        commandHandler.register("take", new Command() {
+        commandHandler.register("take", "<Item> - Puts specified item in your inventory", new Command() {
 
             public boolean onCommand(String command, String[] args) {
                 if (args.length > 0) {
@@ -339,7 +352,7 @@ public class Zork {
                 return false;
             }
         });
-        commandHandler.register("open", new Command() {
+        commandHandler.register("open", "<Container> - Opens the specified container", new Command() {
 
             public boolean onCommand(String command, String[] args) {
                 if (args.length == 1) {
@@ -372,7 +385,7 @@ public class Zork {
                 return false;
             }
         });
-        commandHandler.register("close", new Command() {
+        commandHandler.register("close", "Closes the currently opened container", new Command() {
 
             public boolean onCommand(String command, String[] args) {
                 if (player.getCurrentView() instanceof Container) {
@@ -382,7 +395,7 @@ public class Zork {
                 return false;
             }
         });
-        commandHandler.register("inventory", new Command() {
+        commandHandler.register("inventory", "View a list of items in your inventory", new Command() {
 
             public boolean onCommand(String command, String[] args) {
                 if (player.getInventory().getFullInventory().size() > 0) {
@@ -711,5 +724,9 @@ public class Zork {
 
     public void println(){
         println("");
+    }
+
+    public void debug(Object o){
+        println("[DEBUG] " + o);
     }
 }

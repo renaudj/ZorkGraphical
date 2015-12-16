@@ -8,14 +8,22 @@ import java.util.HashMap;
 public class CommandHandler {
     private Zork game;
     private HashMap<String, Command> commands;
+    public HashMap<String, String> descriptions;
 
     public CommandHandler(Zork zork) {
         commands = new HashMap<String, Command>();
+        descriptions = new HashMap<String, String>();
         this.game = zork;
     }
 
-    public void register(String command, Command cmd) {
+
+    public void register(String command, String description, Command cmd) {
         commands.put(command, cmd);
+        descriptions.put(command, description);
+    }
+
+    public String getDescription(String command){
+        return descriptions.get(command);
     }
 
     public boolean handle(String line) {

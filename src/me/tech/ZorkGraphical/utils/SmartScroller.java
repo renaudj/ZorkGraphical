@@ -1,4 +1,4 @@
-package me.tech.ZorkGraphical;
+package me.tech.ZorkGraphical.utils;
 
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
