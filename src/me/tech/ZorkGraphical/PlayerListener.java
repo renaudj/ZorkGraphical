@@ -5,11 +5,10 @@ import me.tech.ZorkGraphical.api.events.EventListener;
 import me.tech.ZorkGraphical.entity.Player;
 import me.tech.ZorkGraphical.events.PlayerAttackEvent;
 import me.tech.ZorkGraphical.events.PlayerDamageEvent;
+import me.tech.ZorkGraphical.events.PlayerLevelUpEvent;
+import me.tech.ZorkGraphical.items.Food;
 import me.tech.ZorkGraphical.utils.Experience;
 
-/**
- * Created by renaudj on 11/22/15.
- */
 public class PlayerListener implements EventListener {
 
     @Event
@@ -24,5 +23,12 @@ public class PlayerListener implements EventListener {
     @Event
     public void onPlayerDamaged(PlayerDamageEvent e) {
         Zork.getInstance().println(e.getEntity().getName() + " dealt " + e.getDamage() + " damage on you wielding " + (e.getItemInHand() == null ? "nothing" : e.getItemInHand().getName()) + " | " + e.getPlayer().getHP() + "/" + e.getPlayer().getMaxHP());
+    }
+
+    @Event
+    public void onLevelUp(PlayerLevelUpEvent e){
+        if(e.getLevel() >= 2){
+            e.getPlayer().getInventory().addItem(new Food("Apple", 1, 20,  "Increases HP by 20"));
+        }
     }
 }

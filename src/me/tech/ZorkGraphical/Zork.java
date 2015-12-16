@@ -18,9 +18,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by renaudj on 12/14/15.
- */
 public class Zork {
     private static Zork instance;
     //Create rooms here
@@ -72,7 +69,7 @@ public class Zork {
     public final Room room9e = new Room("Room9e", Lang.r9e);
     public boolean running = false;
     public CommandHandler commandHandler;
-    private HashMap<String, Recipe> recipes = new HashMap<String, Recipe>();
+    private HashMap<String, Recipe> recipes = new HashMap<>();
     private Player player;
     private EventExecutor events;
     private GUIManager guiManager;
@@ -305,8 +302,8 @@ public class Zork {
                 if (args.length > 0) {
                     if (player.getCurrentView() instanceof Room) {
                         String comm = "";
-                        for (int i = 0; i < args.length; i++) {
-                            comm += args[i] + " ";
+                        for (String arg : args) {
+                            comm += arg + " ";
                         }
                         comm = comm.trim();
                         for (Item item : ((Room) player.getCurrentView()).getItems()) {
@@ -325,8 +322,8 @@ public class Zork {
                         return true;
                     } else if (player.getCurrentView() instanceof Container) {
                         String comm = "";
-                        for (int i = 0; i < args.length; i++) {
-                            comm += args[i] + " ";
+                        for (String arg : args) {
+                            comm += arg + " ";
                         }
                         comm = comm.trim();
                         for (Item item : ((Container) player.getCurrentView()).getItems()) {

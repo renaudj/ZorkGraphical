@@ -1,8 +1,5 @@
 package me.tech.ZorkGraphical.utils;
 
-/**
- * Created by renaudj on 12/15/15.
- */
 public class Experience {
     public static int KILL = 150;
     public static int getRequiredExpForLevel(int level){

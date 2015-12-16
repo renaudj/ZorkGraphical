@@ -4,14 +4,12 @@ package me.tech.ZorkGraphical.entity;
 import me.tech.ZorkGraphical.Zork;
 import me.tech.ZorkGraphical.events.PlayerAttackEvent;
 import me.tech.ZorkGraphical.events.PlayerDamageEvent;
-import me.tech.ZorkGraphical.items.Inventory;
 import me.tech.ZorkGraphical.items.Item;
 import me.tech.ZorkGraphical.items.Weapon;
 import me.tech.ZorkGraphical.room.Room;
 import me.tech.ZorkGraphical.utils.Experience;
 
 public class Player extends EntityLiving {
-    private Inventory inventory;
     private Room currentRoom;
     private Object currentView = null;
     private int exp;
@@ -54,10 +52,6 @@ public class Player extends EntityLiving {
 
     public void incrementLevel(){
         level++;
-    }
-
-    public void decrementLevel(){
-        level--;
     }
 
     public Room getCurrentRoom() {
@@ -118,7 +112,7 @@ public class Player extends EntityLiving {
             }
             Zork.getInstance().println();
         }
-        if(getCurrentRoom().getName() !="Room0" )
+        if(!getCurrentRoom().getName().equals("Room0"))
         Zork.getInstance().println(getCurrentRoom().getExitString());
         room.onEnter(this);
     }
@@ -130,7 +124,7 @@ public class Player extends EntityLiving {
             if (getRightHand() != null)
                 if (getRightHand() instanceof Weapon) {
                     damage = ((Weapon) getRightHand()).getPower();
-                    i = (Weapon) getRightHand();
+                    i = getRightHand();
                 } else {
                     damage = 1;
                 }
@@ -138,7 +132,7 @@ public class Player extends EntityLiving {
             if (getLeftHand() != null)
                 if (getLeftHand() instanceof Weapon) {
                     damage = ((Weapon) getLeftHand()).getPower();
-                    i = (Weapon) getLeftHand();
+                    i = getLeftHand();
                 } else {
                     damage = 1;
                 }
@@ -151,7 +145,7 @@ public class Player extends EntityLiving {
     }
 
     public void onDamage(EntityLiving p) {
-        int damage = 0;
+        int damage;
         Item i = null;
         if (p.getRightHand() != null || p.getLeftHand() != null) {
             if (p.getRightHand() != null)

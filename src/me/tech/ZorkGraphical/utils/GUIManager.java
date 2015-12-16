@@ -1,6 +1,7 @@
 package me.tech.ZorkGraphical.utils;
 
 import me.tech.ZorkGraphical.Zork;
+import me.tech.ZorkGraphical.items.Food;
 import me.tech.ZorkGraphical.items.InventorySlotType;
 import me.tech.ZorkGraphical.items.Item;
 import me.tech.ZorkGraphical.items.Weapon;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class GUIManager {
     public JFrame frame;
@@ -21,7 +23,7 @@ public class GUIManager {
     public JPanel mainPanel;
     private Zork zork;
     public JMenuBar menu;
-    private JList inventoryList;
+    private JList<String> inventoryList;
     public JProgressBar experience;
 
     public GUIManager(Zork z) {
@@ -40,7 +42,7 @@ public class GUIManager {
         }
         menu = new JMenuBar();
         JMenu m = new JMenu("View");
-        JMenuItem inventory = new JMenuItem("Command Help");
+        JMenuItem cmdHelp = new JMenuItem("Command Help");
         JMenuItem recipes = new JMenuItem("Crafting Recipes");
 
         String commandString = "";
@@ -50,7 +52,7 @@ public class GUIManager {
         commandString = commandString.trim();
         final String descs = commandString;
 
-        inventory.addActionListener(new ActionListener() {
+        cmdHelp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 JOptionPane.showMessageDialog(frame, descs);
@@ -60,20 +62,20 @@ public class GUIManager {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 final JFrame recipeFrame = new JFrame("Crafting Recipes");
-                final String[] recipes = Zork.getInstance().getRecipes().keySet().toArray(new String[]{});
-                final JList list = new JList(recipes);
+                Set<String> strings = Zork.getInstance().getRecipes().keySet();
+                final String[] recipes = strings.toArray(new String[strings.size()]);
+                final JList<String> list;
+                list = new JList<>(recipes);
                 list.addMouseListener(new MouseAdapter() {
                     public void mousePressed(MouseEvent e) {
-                        if (true) {
-                            list.setSelectedIndex(list.locationToIndex(e.getPoint()));
-                            if (!list.isSelectionEmpty()) {
-                                String slist = "You need: \n";
-                                for(Item i : Zork.getInstance().getRecipes().get(recipes[list.getSelectedIndex()]).getRequirements()){
-                                    slist += i.getName() + "\n";
-                                }
-                                slist = slist.trim();
-                                JOptionPane.showMessageDialog(recipeFrame, slist);
+                        list.setSelectedIndex(list.locationToIndex(e.getPoint()));
+                        if (!list.isSelectionEmpty()) {
+                            String slist = "You need: \n";
+                            for(Item i : Zork.getInstance().getRecipes().get(recipes[list.getSelectedIndex()]).getRequirements()){
+                                slist += i.getName() + "\n";
                             }
+                            slist = slist.trim();
+                            JOptionPane.showMessageDialog(recipeFrame, slist);
                         }
                     }
                 });
@@ -84,13 +86,13 @@ public class GUIManager {
                 recipeFrame.setVisible(true);
             }
         });
-        m.add(inventory);
+        m.add(cmdHelp);
         m.add(recipes);
         menu.add(m);
 
         frame.add(menu);
 
-        inventoryList = new JList();
+        inventoryList = new JList<>();
 
         log = new JTextArea(25, 50);
         log.setEditable(false);
@@ -165,11 +167,13 @@ public class GUIManager {
         frame.setVisible(true);
         final JPopupMenu itemOptions = new JPopupMenu("Options");
         JMenu equip = new JMenu("Equip");
+        JMenu info = new JMenu("Info");
         JMenuItem right = new JMenuItem("Right Hand");
         JMenuItem left = new JMenuItem("Left Hand");
         equip.add(right);
         equip.add(left);
         itemOptions.add(equip);
+        itemOptions.add(info);
 
         right.addActionListener(new ActionListener() {
             @Override
@@ -189,6 +193,21 @@ public class GUIManager {
                     int index = inventoryList.getSelectedIndex();
                     Item i = Zork.getInstance().getPlayer().getInventory().getFullInventory().get(index);
                     Zork.getInstance().getPlayer().getInventory().equip(InventorySlotType.LEFT_HAND, i);
+                }
+            }
+        });
+
+        info.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                int index = inventoryList.getSelectedIndex();
+                Item i = Zork.getInstance().getPlayer().getInventory().getFullInventory().get(index);
+                String type = "";
+                if(i instanceof Weapon) {
+                    type = "Weapon";
+                    JOptionPane.showMessageDialog(frame, i.getDescription() + "\nDamage: " + ((Weapon) i).getPower() + "\nDurability: " + i.getDurability() + "/" + i.getMaxDurability());
+                } else if(i instanceof Food){
+                    type = "Food";
                 }
             }
         });
@@ -236,8 +255,7 @@ public class GUIManager {
     }
 
     public void updateInventory() {
-        int size = Zork.getInstance().getPlayer().getInventory().getFullInventory().size();
-        ArrayList<String> name = new ArrayList<String>();
+        ArrayList<String> name = new ArrayList<>();
         for (InventorySlotType slot : Zork.getInstance().getPlayer().getInventory().getItems().keySet()) {
             if (!slot.equals(InventorySlotType.INVENTORY)) {
                 if (Zork.getInstance().getPlayer().getInventory().getSlot(slot).size() > 0) {
@@ -257,6 +275,6 @@ public class GUIManager {
                 }
             }
         }
-        inventoryList.setListData(name.toArray(new String[]{}));
+        inventoryList.setListData(name.toArray(new String[name.size()]));
     }
 }

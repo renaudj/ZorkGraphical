@@ -1,12 +1,10 @@
 package me.tech.ZorkGraphical.entity;
 
 
-import me.tech.ZorkGraphical.Zork;
 import me.tech.ZorkGraphical.items.Inventory;
 import me.tech.ZorkGraphical.items.InventorySlotType;
 import me.tech.ZorkGraphical.items.Item;
 import me.tech.ZorkGraphical.items.Weapon;
-import me.tech.ZorkGraphical.utils.Experience;
 
 public abstract class EntityLiving {
     private String name;
@@ -64,7 +62,7 @@ public abstract class EntityLiving {
                     c.setHP(c.getHP() - ((Weapon) getRightHand()).getPower());
                     getRightHand().setDurability(getRightHand().getDurability() - 1);
                     ((Weapon) getRightHand()).activateAbility(this, c);
-                    if (((Weapon) getRightHand()).getDurability() <= 0) {
+                    if ((getRightHand()).getDurability() <= 0) {
                         getInventory().removeItem(getRightHand());
                     }
                 } else {
@@ -75,7 +73,7 @@ public abstract class EntityLiving {
                     c.setHP(c.getHP() - ((Weapon) getLeftHand()).getPower());
                     getLeftHand().setDurability(getLeftHand().getDurability() - 1);
                     ((Weapon) getLeftHand()).activateAbility(this, c);
-                    if (((Weapon) getLeftHand()).getDurability() <= 0) {
+                    if ((getLeftHand()).getDurability() <= 0) {
                         getInventory().removeItem(getLeftHand());
                     }
                 } else {
