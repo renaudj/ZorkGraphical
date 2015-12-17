@@ -9,33 +9,37 @@ import me.tech.ZorkGraphical.items.Item;
 import me.tech.ZorkGraphical.items.Weapon;
 import me.tech.ZorkGraphical.room.Room;
 import me.tech.ZorkGraphical.utils.Experience;
+import me.tech.ZorkGraphical.utils.Skill;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 public class Player extends EntityLiving implements Serializable {
     private Room currentRoom;
     private Object currentView = null;
     private int exp;
     private int level;
+    private HashMap<String, Skill> skillSet = new HashMap<>();
 
     private int skillTokens = 0;
 
-    private int engineerSkill = 0;
-
     public Player() {
         super("", 100);
+        this.skillSet.put("engineer", new Skill("Engineer", 0, "Each level increases chance of your weapon not losing durability by 10%"));
+        this.skillSet.put("power", new Skill("Power", 0, "Each level increases damage inflicted by 1"));
+        this.skillSet.put("toughness", new Skill("Toughness", 0, "Each level decreases damage received by 1"));
     }
 
     public int getExp(){
         return exp;
     }
 
-    public void incrementEngineerSkill(){
-        engineerSkill++;
+    public Skill getSkill(String name){
+        return skillSet.get(name);
     }
 
-    public int getEngineerSkill(){
-        return engineerSkill;
+    public HashMap<String, Skill> getSkillSet(){
+        return skillSet;
     }
 
     public void addSkillToken(){
@@ -179,7 +183,7 @@ public class Player extends EntityLiving implements Serializable {
                     damage = ((Weapon) getRightHand()).getPower();
                     i = getRightHand();
                     int rand = Experience.randomInt(1, 100);
-                    if(!(rand <= 0 + (10*getEngineerSkill()))){
+                    if(!(rand <= 0 + (10*getSkill("engineer").getLevel()))){
                         getRightHand().setDurability(getRightHand().getDurability() - 1);
                             if ((getRightHand()).getDurability() <= 0) {
                                 getInventory().removeItem(getRightHand());
@@ -195,7 +199,7 @@ public class Player extends EntityLiving implements Serializable {
                     damage = ((Weapon) getLeftHand()).getPower();
                     i = getLeftHand();
                     int rand = Experience.randomInt(1, 100);
-                    if(!(rand <= 0 + (10*getEngineerSkill()))) {
+                    if(!(rand <= 0 + (10*getSkill("engineer").getLevel()))) {
                         getLeftHand().setDurability(getLeftHand().getDurability() - 1);
                         if ((getLeftHand()).getDurability() <= 0) {
                             getInventory().removeItem(getLeftHand());
@@ -208,7 +212,7 @@ public class Player extends EntityLiving implements Serializable {
         } else {
             damage = 1;
         }
-        c.setHP(c.getHP() - damage);
+        c.setHP(c.getHP() - (damage + getSkill("power").getLevel()));
         c.onDamage(this);
         Zork.getInstance().getGuiManager().updateInventory();
         Zork.getInstance().getEventExecutor().executeEvent(new PlayerAttackEvent(this, damage, c, i));

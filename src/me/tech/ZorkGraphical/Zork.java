@@ -13,6 +13,7 @@ import me.tech.ZorkGraphical.room.OnEnterRoomListener;
 import me.tech.ZorkGraphical.room.Room;
 import me.tech.ZorkGraphical.utils.Experience;
 import me.tech.ZorkGraphical.utils.GUIManager;
+import me.tech.ZorkGraphical.utils.Skill;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -78,7 +79,11 @@ public class Zork implements Serializable {
     public transient boolean debug = true;
 
     public Zork(){
-
+        Runtime.getRuntime().addShutdownHook(new Thread(){
+            public void run(){
+                save();
+            }
+        });
         instance = this;
         commandHandler = new CommandHandler(this);
         events = new EventExecutor();
@@ -228,17 +233,20 @@ public class Zork implements Serializable {
                     name = name.trim();
 
                     if(args[0].equalsIgnoreCase("info")){
-                        Zork.getInstance().println("Skill: " + name);
-                        if(name.equalsIgnoreCase("engineer")){
-                            Zork.getInstance().println("Level: " + player.getEngineerSkill());
-                            Zork.getInstance().println("The higher the skill level, the higher the chance your item will not lose its durability when used.");
+                        if(player.getSkillSet().keySet().contains(name)){
+                            Skill sk = player.getSkill(name);
+                            println("Skill: " + sk.getName() + "\nLevel: " + sk.getLevel() + "\nDescription: " + sk.getDescription());
+                            return true;
+                        } else {
+                            println("That skill doesn't exist!");
+                            return true;
                         }
                     } else if(args[0].equalsIgnoreCase("upgrade")){
                         if(player.getSkillTokens() > 0){
-                            if(name.equalsIgnoreCase("engineer")){
+                            if(player.getSkillSet().keySet().contains(name)){
                                 player.removeSkillToken();
-                                player.incrementEngineerSkill();
-                                Zork.getInstance().println("Upgraded Engineer skill to level " + player.getEngineerSkill());
+                                player.getSkill(name).increment();
+                                println("Upgraded " + player.getSkill(name).getName() + " to level " +  player.getSkill(name).getLevel() + "!");
                             }
                         }
                     }

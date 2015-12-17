@@ -61,7 +61,14 @@ public abstract class EntityLiving implements Serializable{
         if (getRightHand() != null || getLeftHand() != null) {
             if (getRightHand() != null)
                 if (getRightHand() instanceof Weapon) {
-                    c.setHP(c.getHP() - ((Weapon) getRightHand()).getPower());
+                    if(c instanceof Player){
+                        int hptoremove = (((Weapon) getRightHand()).getPower() - ((Player) c).getSkill("toughness").getLevel());
+                        if(hptoremove <= 0)
+                            hptoremove = 0;
+                        c.setHP(c.getHP() - hptoremove);
+                    } else {
+                        c.setHP(c.getHP() - ((Weapon) getRightHand()).getPower());
+                    }
                     getRightHand().setDurability(getRightHand().getDurability() - 1);
                     ((Weapon) getRightHand()).activateAbility(this, c);
                     if ((getRightHand()).getDurability() <= 0) {
@@ -72,7 +79,14 @@ public abstract class EntityLiving implements Serializable{
                 }
             if (getLeftHand() != null)
                 if (getLeftHand() instanceof Weapon) {
-                    c.setHP(c.getHP() - ((Weapon) getLeftHand()).getPower());
+                    if(c instanceof Player){
+                        int hptoremove = (((Weapon) getRightHand()).getPower() - ((Player) c).getSkill("toughness").getLevel());
+                        if(hptoremove <= 0)
+                            hptoremove = 0;
+                        c.setHP(c.getHP() - hptoremove);
+                    } else {
+                        c.setHP(c.getHP() - ((Weapon) getLeftHand()).getPower());
+                    }
                     getLeftHand().setDurability(getLeftHand().getDurability() - 1);
                     ((Weapon) getLeftHand()).activateAbility(this, c);
                     if ((getLeftHand()).getDurability() <= 0) {
