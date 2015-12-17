@@ -147,6 +147,7 @@ public class Zork implements Serializable {
                 room9e = z.room9e;
 
                 player = z.player;
+                recipes = z.recipes;
                 resume();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -215,6 +216,37 @@ public class Zork implements Serializable {
             }
 
         });
+
+        commandHandler.register("skill", "<Info/Upgrade> <Skill Name> - View info about a skill or upgrade it", new Command() {
+
+            public boolean onCommand(String command, String[] args) {
+                if (args.length == 2) {
+                    String name = "";
+                    for (int i = 1; i < args.length; i++){
+                        name += args[i] + " ";
+                    }
+                    name = name.trim();
+
+                    if(args[0].equalsIgnoreCase("info")){
+                        Zork.getInstance().println("Skill: " + name);
+                        if(name.equalsIgnoreCase("engineer")){
+                            Zork.getInstance().println("Level: " + player.getEngineerSkill());
+                            Zork.getInstance().println("The higher the skill level, the higher the chance your item will not lose its durability when used.");
+                        }
+                    } else if(args[0].equalsIgnoreCase("upgrade")){
+                        if(player.getSkillTokens() > 0){
+                            if(name.equalsIgnoreCase("engineer")){
+                                player.removeSkillToken();
+                                player.incrementEngineerSkill();
+                                Zork.getInstance().println("Upgraded Engineer skill to level " + player.getEngineerSkill());
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+
+        });
         commandHandler.register("attack", "<Character/Enemy> - Attacks specified Character/Enemy with equipped items, prioritizing the right hand", new Command() {
 
             public boolean onCommand(String command, String[] args) {
@@ -236,13 +268,19 @@ public class Zork implements Serializable {
 
             public boolean onCommand(String command, String[] args) {
                 if (args.length == 1) {
-                    if (player.getInventory().hasItem(args[0])) {
-                        Item item = player.getInventory().getItem(args[0]);
-                        item.use(player);
+                    String s = "";
+                    for (String f : args) {
+                        s += f + " ";
                     }
-                } else if (args.length == 2) {
-                    if (player.getInventory().hasItem(args[0])) {
-                        Item item = player.getInventory().getItem(args[0]);
+                    s = s.trim();
+                    if (player.getInventory().hasItem(s)) {
+                        if(player.getInventory().getItem(s) instanceof Food){
+                            Item item = player.getInventory().getItem(s);
+                            item.use(player);
+                            player.getInventory().removeItem(item);
+                            return true;
+                        }
+                        Item item = player.getInventory().getItem(s);
                         item.use(player);
                     }
                 }
@@ -255,13 +293,19 @@ public class Zork implements Serializable {
 
             public boolean onCommand(String command, String[] args) {
                 if (args.length > 0) {
-                    if (player.getInventory().hasItem(args[0])) {
-                        if (!(player.getInventory().getItem(args[0]) instanceof Food)) {
+                    String s = "";
+                    for (String f : args) {
+                        s += f + " ";
+                    }
+                    s = s.trim();
+                    if (player.getInventory().hasItem(s)) {
+                        if (!(player.getInventory().getItem(s) instanceof Food)) {
                             Zork.getInstance().println("That's not food!");
                             return true;
                         }
-                        Item item = player.getInventory().getItem(args[0]);
+                        Item item = player.getInventory().getItem(s);
                         item.use(player);
+                        player.getInventory().removeItem(item);
                     }
                 }
                 return true;
@@ -715,9 +759,9 @@ public class Zork implements Serializable {
         ArrayList<Item> ingredients = new ArrayList<Item>(); //ArrayList contains the list of required ingredients
         ingredients.add(rock); //Adding the rock as an ingredient
         ingredients.add(stick); //Adding the stick as an ingredient
-        Item itemArrow = new Item("Arrow", 2, 2, "A basic arrow"); //A new item, will be used as the product of the recipe
-        Recipe arrow = new Recipe(ingredients, itemArrow); //The recipe itself, with the ingredients and the product item as the arguments/
-        recipes.put("arrow", arrow); //Register the recipe in the game. "arrow" is what the user will type after "Craft" to craft an arrow.
+        Weapon itemSpear = new Weapon("Spear", 10, 2, "A basic spear", 10, 0); //A new item, will be used as the product of the recipe
+        Recipe spear = new Recipe(ingredients, itemSpear); //The recipe itself, with the ingredients and the product item as the arguments/
+        recipes.put("spear", spear); //Register the recipe in the game. "arrow" is what the user will type after "Craft" to craft an arrow.
 
         room0.addItem(rock);
         room0.addItem(stick);

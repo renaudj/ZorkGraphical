@@ -30,5 +30,7 @@ public class PlayerListener implements EventListener {
         if(e.getLevel() >= 2){
             e.getPlayer().getInventory().addItem(new Food("Apple", 1, 20,  "Increases HP by 20"));
         }
+        e.getPlayer().addSkillToken();
+        Zork.getInstance().println("You've earned a skill token!");
     }
 }
