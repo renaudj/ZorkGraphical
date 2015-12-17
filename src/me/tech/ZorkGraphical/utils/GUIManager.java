@@ -167,7 +167,7 @@ public class GUIManager {
         frame.setVisible(true);
         final JPopupMenu itemOptions = new JPopupMenu("Options");
         JMenu equip = new JMenu("Equip");
-        JMenu info = new JMenu("Info");
+        JMenuItem info = new JMenuItem("Info");
         JMenuItem right = new JMenuItem("Right Hand");
         JMenuItem left = new JMenuItem("Left Hand");
         equip.add(right);
