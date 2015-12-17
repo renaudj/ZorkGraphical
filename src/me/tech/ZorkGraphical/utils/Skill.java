@@ -1,9 +1,11 @@
 package me.tech.ZorkGraphical.utils;
 
+import java.io.Serializable;
+
 /**
  * Created by renaudj on 12/17/15.
  */
-public class Skill {
+public class Skill implements Serializable{
     private String name;
     private int level;
     private String description;

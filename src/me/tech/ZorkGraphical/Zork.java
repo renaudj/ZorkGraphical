@@ -222,6 +222,19 @@ public class Zork implements Serializable {
 
         });
 
+        commandHandler.register("skills", "List of skills", new Command() {
+
+            public boolean onCommand(String command, String[] args) {
+                for(String name : player.getSkillSet().keySet()){
+                    Skill sk = player.getSkill(name);
+                    println("Skill: " + sk.getName() + "\nLevel: " + sk.getLevel() + "\nDescription: " + sk.getDescription() + "\n");
+
+                }
+                return true;
+            }
+
+        });
+
         commandHandler.register("skill", "<Info/Upgrade> <Skill Name> - View info about a skill or upgrade it", new Command() {
 
             public boolean onCommand(String command, String[] args) {
