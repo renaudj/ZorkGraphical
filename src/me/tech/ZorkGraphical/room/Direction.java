@@ -1,6 +1,8 @@
 package me.tech.ZorkGraphical.room;
 
-public enum Direction {
+import java.io.Serializable;
+
+public enum Direction implements Serializable {
 	NORTH, SOUTH, EAST, WEST, UP, DOWN;
 
 	public static boolean exists(String direction) {

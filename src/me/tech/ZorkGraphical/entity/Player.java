@@ -9,7 +9,9 @@ import me.tech.ZorkGraphical.items.Weapon;
 import me.tech.ZorkGraphical.room.Room;
 import me.tech.ZorkGraphical.utils.Experience;
 
-public class Player extends EntityLiving {
+import java.io.Serializable;
+
+public class Player extends EntityLiving implements Serializable {
     private Room currentRoom;
     private Object currentView = null;
     private int exp;
@@ -115,6 +117,31 @@ public class Player extends EntityLiving {
         if(!getCurrentRoom().getName().equals("Room0"))
         Zork.getInstance().println(getCurrentRoom().getExitString());
         room.onEnter(this);
+    }
+
+
+    public void resumeRoom(Room room) {
+        setCurrentRoom(room);
+        setCurrentView(room);
+        Zork.getInstance().println(room.getDescription() + "\n");
+        if (room.hasItems()) {
+            Zork.getInstance().print("You see");
+            for (Item i : room.getItems()) {
+                String o = ", a " + i.getName();
+                Zork.getInstance().print(o.substring(1));
+            }
+            Zork.getInstance().println();
+        } else
+            Zork.getInstance().println("There's nothing interesting here.");
+        if (room.hasCharacters()) {
+            for (Character i : room.getCharacters()) {
+                Zork.getInstance().println(i.getName() + " is here.");
+                Zork.getInstance().println(i.getDescription());
+            }
+            Zork.getInstance().println();
+        }
+        if(!getCurrentRoom().getName().equals("Room0"))
+            Zork.getInstance().println(getCurrentRoom().getExitString());
     }
 
     public void attack(EntityLiving c) {

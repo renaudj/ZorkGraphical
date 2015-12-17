@@ -5,7 +5,9 @@ import me.tech.ZorkGraphical.Ability.IAbility;
 import me.tech.ZorkGraphical.entity.EntityLiving;
 import me.tech.ZorkGraphical.entity.Player;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     private String name;
     private int durability;
     private int maxDurability;

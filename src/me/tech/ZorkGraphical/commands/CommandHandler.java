@@ -3,6 +3,7 @@ package me.tech.ZorkGraphical.commands;
 
 import me.tech.ZorkGraphical.Zork;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 public class CommandHandler {

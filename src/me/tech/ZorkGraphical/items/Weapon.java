@@ -3,10 +3,12 @@ package me.tech.ZorkGraphical.items;
 
 import me.tech.ZorkGraphical.entity.EntityLiving;
 
+import java.io.Serializable;
+
 /**
  * Created by renaudj on 11/16/15.
  */
-public class Weapon extends Item {
+public class Weapon extends Item implements Serializable {
     private int power;
     private int precision;
 

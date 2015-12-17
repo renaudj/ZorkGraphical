@@ -1,12 +1,13 @@
 package me.tech.ZorkGraphical.items;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by renaudj on 11/20/15.
  */
-public enum InventorySlotType {
+public enum InventorySlotType implements Serializable {
     RIGHT_HAND("right", "RIGHT", "RIGHT_HAND"),
     LEFT_HAND("left"),
     HELMET("hat"),

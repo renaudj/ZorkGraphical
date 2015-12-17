@@ -4,6 +4,7 @@ package me.tech.ZorkGraphical.items;
 import me.tech.ZorkGraphical.Zork;
 import me.tech.ZorkGraphical.entity.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Created by renaudj on 12/4/15.
  */
-public class Recipe {
+public class Recipe implements Serializable {
     private List<Item> requirements;
     private Item result;
 

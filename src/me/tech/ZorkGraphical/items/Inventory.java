@@ -2,6 +2,7 @@ package me.tech.ZorkGraphical.items;
 
 import me.tech.ZorkGraphical.Zork;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by renaudj on 11/20/15.
  */
-public class Inventory {
+public class Inventory implements Serializable {
     private HashMap<InventorySlotType, List<Item>> items;
 
     public Inventory() {

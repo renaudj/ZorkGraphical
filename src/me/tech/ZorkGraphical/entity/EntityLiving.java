@@ -6,7 +6,9 @@ import me.tech.ZorkGraphical.items.InventorySlotType;
 import me.tech.ZorkGraphical.items.Item;
 import me.tech.ZorkGraphical.items.Weapon;
 
-public abstract class EntityLiving {
+import java.io.Serializable;
+
+public abstract class EntityLiving implements Serializable{
     private String name;
     private Inventory inventory;
     private int HP;

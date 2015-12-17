@@ -3,10 +3,11 @@ package me.tech.ZorkGraphical.entity;
 import me.tech.ZorkGraphical.Zork;
 import me.tech.ZorkGraphical.items.Item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Character extends EntityLiving {
+public class Character extends EntityLiving implements Serializable {
 
     private String description;
     private List<Item> deathDrops;

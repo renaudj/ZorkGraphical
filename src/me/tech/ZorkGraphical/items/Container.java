@@ -1,8 +1,9 @@
 package me.tech.ZorkGraphical.items;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Container extends Item {
+public class Container extends Item implements Serializable {
     public List<Item> items;
     private String name;
 

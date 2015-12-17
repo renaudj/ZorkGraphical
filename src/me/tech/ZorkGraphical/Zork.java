@@ -14,81 +14,151 @@ import me.tech.ZorkGraphical.room.Room;
 import me.tech.ZorkGraphical.utils.Experience;
 import me.tech.ZorkGraphical.utils.GUIManager;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Zork {
+public class Zork implements Serializable {
     private static Zork instance;
     //Create rooms here
-    public final Room room0 = new Room("Room0", Lang.r0);
-    public final Room room1a = new Room("Room1a", Lang.r1a);
-    public final Room room1b = new Room("Room1b", Lang.r1b);
-    public final Room room2a = new Room("Room2a", Lang.r2a);
-    public final Room room2b = new Room("Room2b", Lang.r2b);
-    public final Room room3a = new Room("Room3a", Lang.r3a);
-    public final Room room3b = new Room("Room3b", Lang.r3b);
-    public final Room room1c = new Room("Room1c", Lang.r1c);
-    public final Room room2c = new Room("Room2c", Lang.r2c);
-    public final Room room3c = new Room("Room3c", Lang.r3c);
-    public final Room room1d = new Room("Room1d", Lang.r1d);
-    public final Room room2d = new Room("Room2d", Lang.r2d);
-    public final Room room3d = new Room("Room3d", Lang.r3d);
-    public final Room room1e = new Room("Room1e", Lang.r1e);
-    public final Room room2e = new Room("Room2e", Lang.r2e);
-    public final Room room3e = new Room("Room3e", Lang.r3e);
-    public final Room room4a = new Room("Room4a", Lang.r4a);
-    public final Room room4b = new Room("Room4b", Lang.r4b);
-    public final Room room4c = new Room("Room4c", Lang.r4c);
-    public final Room room4d = new Room("Room4d", Lang.r4d);
-    public final Room room4e = new Room("Room4e", Lang.r4e);
-    public final Room room5a = new Room("Room5a", Lang.r5a);
-    public final Room room5b = new Room("Room5b", Lang.r5b);
-    public final Room room5c = new Room("Room5c", Lang.r5c);
-    public final Room room5d = new Room("Room5d", Lang.r5d);
-    public final Room room5e = new Room("Room5e", Lang.r5e);
-    public final Room room6a = new Room("Room6a", Lang.r6a);
-    public final Room room6b = new Room("Room6b", Lang.r6b);
-    public final Room room6c = new Room("Room6c", Lang.r6c);
-    public final Room room6d = new Room("Room6d", Lang.r6d);
-    public final Room room6e = new Room("Room6e", Lang.r6e);
-    public final Room room7a = new Room("Room7a", Lang.r7a);
-    public final Room room7b = new Room("Room7b", Lang.r7b);
-    public final Room room7c = new Room("Room7c", Lang.r7c);
-    public final Room room7d = new Room("Room7d", Lang.r7d);
-    public final Room room7e = new Room("Room7e", Lang.r7e);
-    public final Room room8a = new Room("Room8a", Lang.r8a);
-    public final Room room8b = new Room("Room8b", Lang.r8b);
-    public final Room room8c = new Room("Room8c", Lang.r8c);
-    public final Room room8d = new Room("Room8d", Lang.r8d);
-    public final Room room8e = new Room("Room8e", Lang.r8e);
-    public final Room room9a = new Room("Room9a", Lang.r9a);
-    public final Room room9b = new Room("Room9b", Lang.r9b);
-    public final Room room9c = new Room("Room9c", Lang.r9c);
-    public final Room room9d = new Room("Room9d", Lang.r9d);
-    public final Room room9e = new Room("Room9e", Lang.r9e);
+    public Room room0 = new Room("Room0", Lang.r0);
+    public Room room1a = new Room("Room1a", Lang.r1a);
+    public Room room1b = new Room("Room1b", Lang.r1b);
+    public Room room2a = new Room("Room2a", Lang.r2a);
+    public Room room2b = new Room("Room2b", Lang.r2b);
+    public Room room3a = new Room("Room3a", Lang.r3a);
+    public Room room3b = new Room("Room3b", Lang.r3b);
+    public Room room1c = new Room("Room1c", Lang.r1c);
+    public Room room2c = new Room("Room2c", Lang.r2c);
+    public Room room3c = new Room("Room3c", Lang.r3c);
+    public Room room1d = new Room("Room1d", Lang.r1d);
+    public Room room2d = new Room("Room2d", Lang.r2d);
+    public Room room3d = new Room("Room3d", Lang.r3d);
+    public Room room1e = new Room("Room1e", Lang.r1e);
+    public Room room2e = new Room("Room2e", Lang.r2e);
+    public Room room3e = new Room("Room3e", Lang.r3e);
+    public Room room4a = new Room("Room4a", Lang.r4a);
+    public Room room4b = new Room("Room4b", Lang.r4b);
+    public Room room4c = new Room("Room4c", Lang.r4c);
+    public Room room4d = new Room("Room4d", Lang.r4d);
+    public Room room4e = new Room("Room4e", Lang.r4e);
+    public Room room5a = new Room("Room5a", Lang.r5a);
+    public Room room5b = new Room("Room5b", Lang.r5b);
+    public Room room5c = new Room("Room5c", Lang.r5c);
+    public Room room5d = new Room("Room5d", Lang.r5d);
+    public Room room5e = new Room("Room5e", Lang.r5e);
+    public Room room6a = new Room("Room6a", Lang.r6a);
+    public Room room6b = new Room("Room6b", Lang.r6b);
+    public Room room6c = new Room("Room6c", Lang.r6c);
+    public Room room6d = new Room("Room6d", Lang.r6d);
+    public Room room6e = new Room("Room6e", Lang.r6e);
+    public Room room7a = new Room("Room7a", Lang.r7a);
+    public Room room7b = new Room("Room7b", Lang.r7b);
+    public Room room7c = new Room("Room7c", Lang.r7c);
+    public Room room7d = new Room("Room7d", Lang.r7d);
+    public Room room7e = new Room("Room7e", Lang.r7e);
+    public Room room8a = new Room("Room8a", Lang.r8a);
+    public Room room8b = new Room("Room8b", Lang.r8b);
+    public Room room8c = new Room("Room8c", Lang.r8c);
+    public Room room8d = new Room("Room8d", Lang.r8d);
+    public Room room8e = new Room("Room8e", Lang.r8e);
+    public Room room9a = new Room("Room9a", Lang.r9a);
+    public Room room9b = new Room("Room9b", Lang.r9b);
+    public Room room9c = new Room("Room9c", Lang.r9c);
+    public Room room9d = new Room("Room9d", Lang.r9d);
+    public Room room9e = new Room("Room9e", Lang.r9e);
     public boolean running = false;
-    public CommandHandler commandHandler;
+    public transient CommandHandler commandHandler;
     private HashMap<String, Recipe> recipes = new HashMap<>();
     private Player player;
-    private EventExecutor events;
-    private GUIManager guiManager;
+    private transient EventExecutor events;
+    private transient GUIManager guiManager;
 
-    public boolean debug  = true;
+    public transient boolean debug = true;
 
     public Zork(){
 
         instance = this;
         commandHandler = new CommandHandler(this);
         events = new EventExecutor();
-        player = new Player();
         events.registerListener(new PlayerListener());
         registerCommands();
-        setRoomExits();
         this.guiManager = new GUIManager(this);
-        populateRooms();
-        start();
 
+        File f = new File("savegame.svg");
+        Zork z = null;
+        if(f.exists()){
+            try {
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+                Object in = ois.readObject();
+                if(in instanceof Zork){
+                    z = (Zork)in;
+                }
+                room0 = z.room0;
+                room1a = z.room1a;
+                room2a = z.room2a;
+                room3a = z.room3a;
+                room4a = z.room4a;
+                room5a = z.room5a;
+                room6a = z.room6a;
+                room7a = z.room7a;
+                room8a = z.room8a;
+                room9a = z.room9a;
+
+                room1b = z.room1b;
+                room2b = z.room2b;
+                room3b = z.room3b;
+                room4b = z.room4b;
+                room5b = z.room5b;
+                room6b = z.room6b;
+                room7b = z.room7b;
+                room8b = z.room8b;
+                room9b = z.room9b;
+
+                room1c = z.room1c;
+                room2c = z.room2c;
+                room3c = z.room3c;
+                room4c = z.room4c;
+                room5c = z.room5c;
+                room6c = z.room6c;
+                room7c = z.room7c;
+                room8c = z.room8c;
+                room9c = z.room9c;
+
+                room1d = z.room1d;
+                room2d = z.room2d;
+                room3d = z.room3d;
+                room4d = z.room4d;
+                room5d = z.room5d;
+                room6d = z.room6d;
+                room7d = z.room7d;
+                room8d = z.room8d;
+                room9d = z.room9d;
+
+                room1e = z.room1e;
+                room2e = z.room2e;
+                room3e = z.room3e;
+                room4e = z.room4e;
+                room5e = z.room5e;
+                room6e = z.room6e;
+                room7e = z.room7e;
+                room8e = z.room8e;
+                room9e = z.room9e;
+
+                player = z.player;
+                resume();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            player = new Player();
+            setRoomExits();
+            populateRooms();
+            start();
+        }
     }
 
     public HashMap<String, Recipe> getRecipes(){
@@ -122,17 +192,29 @@ public class Zork {
     }
 
     public void start() {
-
         Zork.getInstance().println(Lang.intro);
         player.goToRoom(room0);
         player.setLevel(1);
-        for(int i = 1; i <= 10; i++){
-            println(i + " - " + Experience.getRequiredExpForLevel(i));
-        }
+        getGuiManager().updateExp(player.getLevel(), player.getExp());
+    }
+
+    public void resume(){
+        player.resumeRoom(player.getCurrentRoom());
+        getGuiManager().updateInventory();
         getGuiManager().updateExp(player.getLevel(), player.getExp());
     }
 
     public void registerCommands() {
+        commandHandler.register("save", "Saves the gamestate to the disk", new Command() {
+
+            public boolean onCommand(String command, String[] args) {
+                if (args.length >= 0) {
+                    save();
+                }
+                return true;
+            }
+
+        });
         commandHandler.register("attack", "<Character/Enemy> - Attacks specified Character/Enemy with equipped items, prioritizing the right hand", new Command() {
 
             public boolean onCommand(String command, String[] args) {
@@ -619,7 +701,7 @@ public class Zork {
         List<Item> items = new ArrayList<Item>();
         items.add(sword);
         Container chest = new Container("Chest", items);
-        Weapon rock = new Weapon("Rock", 1, 1, "", 5, 0);
+        Weapon rock = new Weapon("Rock", 1, 1, "A rock", 5, 0);
         Item stick = new Item("Stick", 1, 1, "Stick");
         rock.setAbility(new IAbility() {
             public void activate(EntityLiving entityLiving) {
@@ -725,5 +807,16 @@ public class Zork {
 
     public void debug(Object o){
         println("[DEBUG] " + o);
+    }
+
+    public void save(){
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("savegame.svg"));
+            out.writeObject(this);
+            out.close();
+            println("Saved game!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

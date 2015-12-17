@@ -1,9 +1,11 @@
 package me.tech.ZorkGraphical.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by renaudj on 11/17/15.
  */
-public class Enemy extends Character {
+public class Enemy extends Character implements Serializable{
     /**
      * Enemies automatically attack you back if you attack them.
      *

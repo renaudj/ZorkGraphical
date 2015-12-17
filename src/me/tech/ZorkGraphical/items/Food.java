@@ -4,10 +4,12 @@ package me.tech.ZorkGraphical.items;
 import me.tech.ZorkGraphical.Zork;
 import me.tech.ZorkGraphical.entity.Player;
 
+import java.io.Serializable;
+
 /**
  * Created by renaudj on 11/20/15.
  */
-public class Food extends Item {
+public class Food extends Item implements Serializable {
     private int hpBonus;
 
     public Food(String name, int weight, int hpBonus, String description) {
