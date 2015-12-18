@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Character extends EntityLiving implements Serializable {
+    public static final Long serialVersionUID = 1L;
 
     private String description;
     private List<Item> deathDrops;

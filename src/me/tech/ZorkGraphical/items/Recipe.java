@@ -13,6 +13,8 @@ import java.util.List;
  * Created by renaudj on 12/4/15.
  */
 public class Recipe implements Serializable {
+    public static final Long serialVersionUID = 1L;
+
     private List<Item> requirements;
     private Item result;
 

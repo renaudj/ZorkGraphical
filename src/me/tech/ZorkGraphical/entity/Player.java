@@ -11,10 +11,13 @@ import me.tech.ZorkGraphical.room.Room;
 import me.tech.ZorkGraphical.utils.Experience;
 import me.tech.ZorkGraphical.utils.Skill;
 
+import javax.swing.*;
+import java.io.File;
 import java.io.Serializable;
 import java.util.HashMap;
 
 public class Player extends EntityLiving implements Serializable {
+    public static final Long serialVersionUID = 1L;
     private Room currentRoom;
     private Object currentView = null;
     private int exp;
@@ -184,12 +187,12 @@ public class Player extends EntityLiving implements Serializable {
                     i = getRightHand();
                     int rand = Experience.randomInt(1, 100);
                     if(!(rand <= 0 + (10*getSkill("engineer").getLevel()))){
+                        ((Weapon) getRightHand()).activateAbility(this, c);
                         getRightHand().setDurability(getRightHand().getDurability() - 1);
                             if ((getRightHand()).getDurability() <= 0) {
                                 getInventory().removeItem(getRightHand());
                             }
                         }
-                    ((Weapon) getRightHand()).activateAbility(this, c);
                 } else {
                     damage = 1;
                 }
@@ -200,12 +203,12 @@ public class Player extends EntityLiving implements Serializable {
                     i = getLeftHand();
                     int rand = Experience.randomInt(1, 100);
                     if(!(rand <= 0 + (10*getSkill("engineer").getLevel()))) {
+                        ((Weapon) getLeftHand()).activateAbility(this, c);
                         getLeftHand().setDurability(getLeftHand().getDurability() - 1);
                         if ((getLeftHand()).getDurability() <= 0) {
                             getInventory().removeItem(getLeftHand());
                         }
                     }
-                    ((Weapon) getLeftHand()).activateAbility(this, c);
                 } else {
                     damage = 1;
                 }
@@ -213,6 +216,7 @@ public class Player extends EntityLiving implements Serializable {
             damage = 1;
         }
         c.setHP(c.getHP() - (damage + getSkill("power").getLevel()));
+        addExp(getSkill("power").getLevel());
         c.onDamage(this);
         Zork.getInstance().getGuiManager().updateInventory();
         Zork.getInstance().getEventExecutor().executeEvent(new PlayerAttackEvent(this, damage, c, i));
@@ -239,7 +243,12 @@ public class Player extends EntityLiving implements Serializable {
     }
 
     public void onDeath(EntityLiving p) {
-        Zork.getInstance().println("You've died!");
+        File f = new File("savegame.svg");
+        if(f.exists())
+            f.delete();
+        Zork.dead = true;
+        JOptionPane.showMessageDialog(null, "You've died!");
+
         System.exit(0);
     }
 }

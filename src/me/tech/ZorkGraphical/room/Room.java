@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Room implements Serializable {
+    public static final Long serialVersionUID = 1L;
+
     private HashMap<Direction, Room> exits;
     private String name;
     private String description;

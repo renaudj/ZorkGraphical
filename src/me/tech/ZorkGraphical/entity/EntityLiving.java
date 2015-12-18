@@ -9,6 +9,8 @@ import me.tech.ZorkGraphical.items.Weapon;
 import java.io.Serializable;
 
 public abstract class EntityLiving implements Serializable{
+    public static final Long serialVersionUID = 1L;
+
     private String name;
     private Inventory inventory;
     private int HP;
@@ -66,6 +68,8 @@ public abstract class EntityLiving implements Serializable{
                         if(hptoremove <= 0)
                             hptoremove = 0;
                         c.setHP(c.getHP() - hptoremove);
+                        ((Player) c).addExp(((Player) c).getSkill("power").getLevel());
+
                     } else {
                         c.setHP(c.getHP() - ((Weapon) getRightHand()).getPower());
                     }
@@ -84,6 +88,7 @@ public abstract class EntityLiving implements Serializable{
                         if(hptoremove <= 0)
                             hptoremove = 0;
                         c.setHP(c.getHP() - hptoremove);
+                        ((Player) c).addExp(((Player) c).getSkill("power").getLevel());
                     } else {
                         c.setHP(c.getHP() - ((Weapon) getLeftHand()).getPower());
                     }

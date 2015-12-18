@@ -9,6 +9,8 @@ import java.io.Serializable;
  * Created by renaudj on 11/16/15.
  */
 public class Weapon extends Item implements Serializable {
+    public static final Long serialVersionUID = 1L;
+
     private int power;
     private int precision;
 

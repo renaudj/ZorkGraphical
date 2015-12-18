@@ -8,6 +8,8 @@ import me.tech.ZorkGraphical.entity.Player;
 import java.io.Serializable;
 
 public class Item implements Serializable {
+    public static final Long serialVersionUID = 1L;
+
     private String name;
     private int durability;
     private int maxDurability;

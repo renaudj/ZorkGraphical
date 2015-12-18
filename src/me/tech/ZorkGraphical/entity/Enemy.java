@@ -6,6 +6,8 @@ import java.io.Serializable;
  * Created by renaudj on 11/17/15.
  */
 public class Enemy extends Character implements Serializable{
+    public static final Long serialVersionUID = 1L;
+
     /**
      * Enemies automatically attack you back if you attack them.
      *

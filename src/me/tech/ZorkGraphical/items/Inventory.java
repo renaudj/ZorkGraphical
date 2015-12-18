@@ -11,6 +11,8 @@ import java.util.List;
  * Created by renaudj on 11/20/15.
  */
 public class Inventory implements Serializable {
+    public static final Long serialVersionUID = 1L;
+
     private HashMap<InventorySlotType, List<Item>> items;
 
     public Inventory() {

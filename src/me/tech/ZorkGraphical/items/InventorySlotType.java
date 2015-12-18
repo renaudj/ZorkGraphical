@@ -8,6 +8,7 @@ import java.util.List;
  * Created by renaudj on 11/20/15.
  */
 public enum InventorySlotType implements Serializable {
+
     RIGHT_HAND("right", "RIGHT", "RIGHT_HAND"),
     LEFT_HAND("left"),
     HELMET("hat"),

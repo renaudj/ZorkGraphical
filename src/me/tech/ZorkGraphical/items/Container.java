@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Container extends Item implements Serializable {
+    public static final Long serialVersionUID = 1L;
+
     public List<Item> items;
     private String name;
 

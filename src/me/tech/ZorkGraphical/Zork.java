@@ -21,66 +21,123 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Zork implements Serializable {
+    public static final Long serialVersionUID = 1L;
     private static Zork instance;
+    public static boolean dead = false;
     //Create rooms here
-    public Room room0 = new Room("Room0", Lang.r0);
-    public Room room1a = new Room("Room1a", Lang.r1a);
-    public Room room1b = new Room("Room1b", Lang.r1b);
-    public Room room2a = new Room("Room2a", Lang.r2a);
-    public Room room2b = new Room("Room2b", Lang.r2b);
-    public Room room3a = new Room("Room3a", Lang.r3a);
-    public Room room3b = new Room("Room3b", Lang.r3b);
-    public Room room1c = new Room("Room1c", Lang.r1c);
-    public Room room2c = new Room("Room2c", Lang.r2c);
-    public Room room3c = new Room("Room3c", Lang.r3c);
-    public Room room1d = new Room("Room1d", Lang.r1d);
-    public Room room2d = new Room("Room2d", Lang.r2d);
-    public Room room3d = new Room("Room3d", Lang.r3d);
-    public Room room1e = new Room("Room1e", Lang.r1e);
-    public Room room2e = new Room("Room2e", Lang.r2e);
-    public Room room3e = new Room("Room3e", Lang.r3e);
-    public Room room4a = new Room("Room4a", Lang.r4a);
-    public Room room4b = new Room("Room4b", Lang.r4b);
-    public Room room4c = new Room("Room4c", Lang.r4c);
-    public Room room4d = new Room("Room4d", Lang.r4d);
-    public Room room4e = new Room("Room4e", Lang.r4e);
-    public Room room5a = new Room("Room5a", Lang.r5a);
-    public Room room5b = new Room("Room5b", Lang.r5b);
-    public Room room5c = new Room("Room5c", Lang.r5c);
-    public Room room5d = new Room("Room5d", Lang.r5d);
-    public Room room5e = new Room("Room5e", Lang.r5e);
-    public Room room6a = new Room("Room6a", Lang.r6a);
-    public Room room6b = new Room("Room6b", Lang.r6b);
-    public Room room6c = new Room("Room6c", Lang.r6c);
-    public Room room6d = new Room("Room6d", Lang.r6d);
-    public Room room6e = new Room("Room6e", Lang.r6e);
-    public Room room7a = new Room("Room7a", Lang.r7a);
-    public Room room7b = new Room("Room7b", Lang.r7b);
-    public Room room7c = new Room("Room7c", Lang.r7c);
-    public Room room7d = new Room("Room7d", Lang.r7d);
-    public Room room7e = new Room("Room7e", Lang.r7e);
-    public Room room8a = new Room("Room8a", Lang.r8a);
-    public Room room8b = new Room("Room8b", Lang.r8b);
-    public Room room8c = new Room("Room8c", Lang.r8c);
-    public Room room8d = new Room("Room8d", Lang.r8d);
-    public Room room8e = new Room("Room8e", Lang.r8e);
-    public Room room9a = new Room("Room9a", Lang.r9a);
-    public Room room9b = new Room("Room9b", Lang.r9b);
-    public Room room9c = new Room("Room9c", Lang.r9c);
-    public Room room9d = new Room("Room9d", Lang.r9d);
-    public Room room9e = new Room("Room9e", Lang.r9e);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public boolean running = false;
     public transient CommandHandler commandHandler;
     private HashMap<String, Recipe> recipes = new HashMap<>();
+    public HashMap<String, Room> rooms = new HashMap<>();
     private Player player;
     private transient EventExecutor events;
     private transient GUIManager guiManager;
 
     public transient boolean debug = true;
 
+    public Room getRoom(String name){
+        return rooms.get(name);
+    }
+
+    public void registerRooms(){
+        rooms.put("room0", new Room("Room0", Lang.r0));
+        rooms.put("room1a", new Room("Room1a", Lang.r1a));
+        rooms.put("room1b", new Room("Room1b", Lang.r1b));
+        rooms.put("room2a", new Room("Room2a", Lang.r2a));
+        rooms.put("room2b", new Room("Room2b", Lang.r2b));
+        rooms.put("room3a", new Room("Room3a", Lang.r3a));
+        rooms.put("room3b", new Room("Room3b", Lang.r3b));
+        rooms.put("room1c", new Room("Room1c", Lang.r1c));
+        rooms.put("room2c", new Room("Room2c", Lang.r2c));
+        rooms.put("room3c", new Room("Room3c", Lang.r3c));
+        rooms.put("room1d", new Room("Room1d", Lang.r1d));
+        rooms.put("room2d", new Room("Room2d", Lang.r2d));
+        rooms.put("room3d", new Room("Room3d", Lang.r3d));
+        rooms.put("room1e", new Room("Room1e", Lang.r1e));
+        rooms.put("room2e", new Room("Room2e", Lang.r2e));
+        rooms.put("room3e", new Room("Room3e", Lang.r3e));
+        rooms.put("room4a", new Room("Room4a", Lang.r4a));
+        rooms.put("room4b", new Room("Room4b", Lang.r4b));
+        rooms.put("room4c", new Room("Room4c", Lang.r4c));
+        rooms.put("room4d", new Room("Room4d", Lang.r4d));
+        rooms.put("room4e", new Room("Room4e", Lang.r4e));
+        rooms.put("room5a", new Room("Room5a", Lang.r5a));
+        rooms.put("room5b", new Room("Room5b", Lang.r5b));
+        rooms.put("room5c", new Room("Room5c", Lang.r5c));
+        rooms.put("room5d", new Room("Room5d", Lang.r5d));
+        rooms.put("room5e", new Room("Room5e", Lang.r5e));
+        rooms.put("room6a", new Room("Room6a", Lang.r6a));
+        rooms.put("room6b", new Room("Room6b", Lang.r6b));
+        rooms.put("room6c", new Room("Room6c", Lang.r6c));
+        rooms.put("room6d", new Room("Room6d", Lang.r6d));
+        rooms.put("room6e", new Room("Room6e", Lang.r6e));
+        rooms.put("room7a", new Room("Room7a", Lang.r7a));
+        rooms.put("room7b", new Room("Room7b", Lang.r7b));
+        rooms.put("room7c", new Room("Room7c", Lang.r7c));
+        rooms.put("room7d", new Room("Room7d", Lang.r7d));
+        rooms.put("room7e", new Room("Room7e", Lang.r7e));
+        rooms.put("room8a", new Room("Room8a", Lang.r8a));
+        rooms.put("room8b", new Room("Room8b", Lang.r8b));
+        rooms.put("room8c", new Room("Room8c", Lang.r8c));
+        rooms.put("room8d", new Room("Room8d", Lang.r8d));
+        rooms.put("room8e", new Room("Room8e", Lang.r8e));
+        rooms.put("room9a", new Room("Room9a", Lang.r9a));
+        rooms.put("room9b", new Room("Room9b", Lang.r9b));
+        rooms.put("room9c", new Room("Room9c", Lang.r9c));
+        rooms.put("room9d", new Room("Room9d", Lang.r9d));
+        rooms.put("room9e", new Room("Room9e", Lang.r9e));
+    }
+
     public Zork(){
         Runtime.getRuntime().addShutdownHook(new Thread(){
             public void run(){
+                if(!dead)
                 save();
             }
         });
@@ -100,59 +157,9 @@ public class Zork implements Serializable {
                 if(in instanceof Zork){
                     z = (Zork)in;
                 }
-                room0 = z.room0;
-                room1a = z.room1a;
-                room2a = z.room2a;
-                room3a = z.room3a;
-                room4a = z.room4a;
-                room5a = z.room5a;
-                room6a = z.room6a;
-                room7a = z.room7a;
-                room8a = z.room8a;
-                room9a = z.room9a;
-
-                room1b = z.room1b;
-                room2b = z.room2b;
-                room3b = z.room3b;
-                room4b = z.room4b;
-                room5b = z.room5b;
-                room6b = z.room6b;
-                room7b = z.room7b;
-                room8b = z.room8b;
-                room9b = z.room9b;
-
-                room1c = z.room1c;
-                room2c = z.room2c;
-                room3c = z.room3c;
-                room4c = z.room4c;
-                room5c = z.room5c;
-                room6c = z.room6c;
-                room7c = z.room7c;
-                room8c = z.room8c;
-                room9c = z.room9c;
-
-                room1d = z.room1d;
-                room2d = z.room2d;
-                room3d = z.room3d;
-                room4d = z.room4d;
-                room5d = z.room5d;
-                room6d = z.room6d;
-                room7d = z.room7d;
-                room8d = z.room8d;
-                room9d = z.room9d;
-
-                room1e = z.room1e;
-                room2e = z.room2e;
-                room3e = z.room3e;
-                room4e = z.room4e;
-                room5e = z.room5e;
-                room6e = z.room6e;
-                room7e = z.room7e;
-                room8e = z.room8e;
-                room9e = z.room9e;
-
                 player = z.player;
                 recipes = z.recipes;
+                rooms = z.rooms;
                 resume();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -161,6 +168,7 @@ public class Zork implements Serializable {
             }
         } else {
             player = new Player();
+            registerRooms();
             setRoomExits();
             populateRooms();
             start();
@@ -199,7 +207,7 @@ public class Zork implements Serializable {
 
     public void start() {
         Zork.getInstance().println(Lang.intro);
-        player.goToRoom(room0);
+        player.goToRoom(getRoom("room0"));
         player.setLevel(1);
         getGuiManager().updateExp(player.getLevel(), player.getExp());
     }
@@ -299,6 +307,7 @@ public class Zork implements Serializable {
                             Item item = player.getInventory().getItem(s);
                             item.use(player);
                             player.getInventory().removeItem(item);
+                            player.addExp(Experience.EAT);
                             return true;
                         }
                         Item item = player.getInventory().getItem(s);
@@ -324,9 +333,10 @@ public class Zork implements Serializable {
                             Zork.getInstance().println("That's not food!");
                             return true;
                         }
-                        Item item = player.getInventory().getItem(s);
+                        Food item = (Food)player.getInventory().getItem(s);
                         item.use(player);
                         player.getInventory().removeItem(item);
+                        player.addExp(Experience.EAT);
                     }
                 }
                 return true;
@@ -354,6 +364,7 @@ public class Zork implements Serializable {
                 for (String st : recipes.keySet()) {
                     if (st.equalsIgnoreCase(s)) {
                         recipes.get(s.toLowerCase()).craft(player);
+                        player.addExp(Experience.CRAFT);
                         return true;
                     }
                 }
@@ -561,213 +572,210 @@ public class Zork implements Serializable {
     }
     //Assign neighboring rooms to the exits in each direction desired
     public void setRoomExits() {
-        room0.addExit(Direction.UP, room1a);
+        getRoom("room0").addExit(Direction.UP,     getRoom("room1a"));
 
-        room1a.addExit(Direction.DOWN, room0);
-        room1a.addExit(Direction.EAST, room2a);
-        room1a.addExit(Direction.SOUTH, room1b);
+        getRoom("room1a").addExit(Direction.DOWN,  getRoom("room0"));
+        getRoom("room1a").addExit(Direction.EAST,  getRoom("room2a"));
+        getRoom("room1a").addExit(Direction.SOUTH, getRoom("room1b"));
 
-        room2a.addExit(Direction.SOUTH, room2b);
-        room2a.addExit(Direction.EAST, room3a);
-        room2a.addExit(Direction.WEST, room1a);
+        getRoom("room2a").addExit(Direction.SOUTH, getRoom("room2b"));
+        getRoom("room2a").addExit(Direction.EAST,  getRoom("room3a"));
+        getRoom("room2a").addExit(Direction.WEST,  getRoom("room1a"));
 
-        room3a.addExit(Direction.WEST, room2a);
-        room3a.addExit(Direction.SOUTH, room3b);
-        room3a.addExit(Direction.EAST, room4a);
+        getRoom("room3a").addExit(Direction.WEST,  getRoom("room2a"));
+        getRoom("room3a").addExit(Direction.SOUTH, getRoom("room3b"));
+        getRoom("room3a").addExit(Direction.EAST,  getRoom("room4a"));
 
-        room4a.addExit(Direction.WEST, room3a);
-        room4a.addExit(Direction.SOUTH, room4b);
-        room4a.addExit(Direction.EAST, room5a);
+        getRoom("room4a").addExit(Direction.WEST,  getRoom("room3a"));
+        getRoom("room4a").addExit(Direction.SOUTH, getRoom("room4b"));
+        getRoom("room4a").addExit(Direction.EAST,  getRoom("room5a"));
 
-        room5a.addExit(Direction.WEST, room4a);
-        room5a.addExit(Direction.SOUTH, room5b);
-        room5a.addExit(Direction.EAST, room6a);
+        getRoom("room5a").addExit(Direction.WEST,  getRoom("room4a"));
+        getRoom("room5a").addExit(Direction.SOUTH, getRoom("room5b"));
+        getRoom("room5a").addExit(Direction.EAST,  getRoom("room6a"));
 
-        room6a.addExit(Direction.WEST, room5a);
-        room6a.addExit(Direction.SOUTH, room6b);
-        room6a.addExit(Direction.EAST, room7a);
+        getRoom("room6a").addExit(Direction.WEST,  getRoom("room5a"));
+        getRoom("room6a").addExit(Direction.SOUTH, getRoom("room6b"));
+        getRoom("room6a").addExit(Direction.EAST,  getRoom("room7a"));
 
-        room7a.addExit(Direction.WEST, room6a);
-        room7a.addExit(Direction.SOUTH, room7b);
-        room7a.addExit(Direction.EAST, room8a);
+        getRoom("room7a").addExit(Direction.WEST,  getRoom("room6a"));
+        getRoom("room7a").addExit(Direction.SOUTH, getRoom("room7b"));
+        getRoom("room7a").addExit(Direction.EAST,  getRoom("room8a"));
 
-        room8a.addExit(Direction.WEST, room7a);
-        room8a.addExit(Direction.SOUTH, room8b);
-        room8a.addExit(Direction.EAST, room9a);
+        getRoom("room8a").addExit(Direction.WEST,  getRoom("room7a"));
+        getRoom("room8a").addExit(Direction.SOUTH, getRoom("room8b"));
+        getRoom("room8a").addExit(Direction.EAST,  getRoom("room9a"));
 
-        room9a.addExit(Direction.WEST, room8a);
-        room9a.addExit(Direction.SOUTH, room9b);
+        getRoom("room9a").addExit(Direction.WEST,  getRoom("room8a"));
+        getRoom("room9a").addExit(Direction.SOUTH, getRoom("room9b"));
 
-        room1b.addExit(Direction.NORTH, room1a);
-        room1b.addExit(Direction.EAST, room2b);
-        room1b.addExit(Direction.SOUTH, room1c);
+        getRoom("room1b").addExit(Direction.NORTH, getRoom("room1a"));
+        getRoom("room1b").addExit(Direction.EAST,  getRoom("room2b"));
+        getRoom("room1b").addExit(Direction.SOUTH, getRoom("room1c"));
 
-        room2b.addExit(Direction.WEST, room1b);
-        room2b.addExit(Direction.NORTH, room2a);
-        room2b.addExit(Direction.EAST, room3b);
-        room2b.addExit(Direction.SOUTH, room2c);
+        getRoom("room2b").addExit(Direction.WEST,  getRoom("room1b"));
+        getRoom("room2b").addExit(Direction.NORTH, getRoom("room2a"));
+        getRoom("room2b").addExit(Direction.EAST,  getRoom("room3b"));
+        getRoom("room2b").addExit(Direction.SOUTH, getRoom("room2c"));
 
-        room3b.addExit(Direction.WEST, room2b);
-        room3b.addExit(Direction.NORTH, room3a);
-        room3b.addExit(Direction.EAST, room4b);
-        room3b.addExit(Direction.SOUTH, room3c);
+        getRoom("room3b").addExit(Direction.WEST,  getRoom("room2b"));
+        getRoom("room3b").addExit(Direction.NORTH, getRoom("room3a"));
+        getRoom("room3b").addExit(Direction.EAST,  getRoom("room4b"));
+        getRoom("room3b").addExit(Direction.SOUTH, getRoom("room3c"));
 
-        room4b.addExit(Direction.WEST, room3b);
-        room4b.addExit(Direction.NORTH, room4a);
-        room4b.addExit(Direction.EAST, room5b);
-        room4b.addExit(Direction.DOWN, room4c);
+        getRoom("room4b").addExit(Direction.WEST,  getRoom("room3b"));
+        getRoom("room4b").addExit(Direction.NORTH, getRoom("room4a"));
+        getRoom("room4b").addExit(Direction.EAST,  getRoom("room5b"));
+        getRoom("room4b").addExit(Direction.DOWN,  getRoom("room4c"));
 
-        room5b.addExit(Direction.WEST, room4b);
-        room5b.addExit(Direction.NORTH, room5a);
-        room5b.addExit(Direction.EAST, room6b);
-        room5b.addExit(Direction.SOUTH, room5c);
+        getRoom("room5b").addExit(Direction.WEST,  getRoom("room4b"));
+        getRoom("room5b").addExit(Direction.NORTH, getRoom("room5a"));
+        getRoom("room5b").addExit(Direction.EAST,  getRoom("room6b"));
+        getRoom("room5b").addExit(Direction.SOUTH, getRoom("room5c"));
 
-        room6b.addExit(Direction.WEST, room5b);
-        room6b.addExit(Direction.NORTH, room6a);
-        room6b.addExit(Direction.EAST, room7b);
-        room6b.addExit(Direction.SOUTH, room6c);
+        getRoom("room6b").addExit(Direction.WEST,  getRoom("room5b"));
+        getRoom("room6b").addExit(Direction.NORTH, getRoom("room6a"));
+        getRoom("room6b").addExit(Direction.EAST,  getRoom("room7b"));
+        getRoom("room6b").addExit(Direction.SOUTH, getRoom("room6c"));
 
-        room7b.addExit(Direction.WEST, room6b);
-        room7b.addExit(Direction.NORTH, room7a);
-        room7b.addExit(Direction.EAST, room8b);
-        room7b.addExit(Direction.SOUTH, room7c);
+        getRoom("room7b").addExit(Direction.WEST,  getRoom("room6b"));
+        getRoom("room7b").addExit(Direction.NORTH, getRoom("room7a"));
+        getRoom("room7b").addExit(Direction.EAST,  getRoom("room8b"));
+        getRoom("room7b").addExit(Direction.SOUTH, getRoom("room7c"));
 
-        room8b.addExit(Direction.WEST, room7b);
-        room8b.addExit(Direction.NORTH, room8a);
-        room8b.addExit(Direction.EAST, room9b);
-        room8b.addExit(Direction.SOUTH, room8c);
+        getRoom("room8b").addExit(Direction.WEST,  getRoom("room7b"));
+        getRoom("room8b").addExit(Direction.NORTH, getRoom("room8a"));
+        getRoom("room8b").addExit(Direction.EAST,  getRoom("room9b"));
+        getRoom("room8b").addExit(Direction.SOUTH, getRoom("room8c"));
 
-        room9b.addExit(Direction.WEST, room8b);
-        room9b.addExit(Direction.NORTH, room9a);
-        room9b.addExit(Direction.SOUTH, room9c);
+        getRoom("room9b").addExit(Direction.WEST,  getRoom("room8b"));
+        getRoom("room9b").addExit(Direction.NORTH, getRoom("room9a"));
+        getRoom("room9b").addExit(Direction.SOUTH, getRoom("room9c"));
 
-        room1c.addExit(Direction.NORTH, room1b);
-        room1c.addExit(Direction.EAST, room2c);
-        room1c.addExit(Direction.SOUTH, room1d);
+        getRoom("room1c").addExit(Direction.NORTH, getRoom("room1b"));
+        getRoom("room1c").addExit(Direction.EAST,  getRoom("room2c"));
+        getRoom("room1c").addExit(Direction.SOUTH, getRoom("room1d"));
 
-        room2c.addExit(Direction.WEST, room1c);
-        room2c.addExit(Direction.NORTH, room2b);
-        room2c.addExit(Direction.EAST, room3c);
-        room2c.addExit(Direction.SOUTH, room2d);
+        getRoom("room2c").addExit(Direction.WEST,  getRoom("room1c"));
+        getRoom("room2c").addExit(Direction.NORTH, getRoom("room2b"));
+        getRoom("room2c").addExit(Direction.EAST,  getRoom("room3c"));
+        getRoom("room2c").addExit(Direction.SOUTH, getRoom("room2d"));
 
-        room3c.addExit(Direction.WEST, room2c);
-        room3c.addExit(Direction.NORTH, room3b);
-        room3c.addExit(Direction.EAST, room4c);
-        room3c.addExit(Direction.SOUTH, room3d);
+        getRoom("room3c").addExit(Direction.WEST,  getRoom("room2c"));
+        getRoom("room3c").addExit(Direction.NORTH, getRoom("room3b"));
+        getRoom("room3c").addExit(Direction.EAST,  getRoom("room4c"));
+        getRoom("room3c").addExit(Direction.SOUTH, getRoom("room3d"));
 
-        room4c.addExit(Direction.WEST, room3c);
-        room4c.addExit(Direction.NORTH, room4b);
-        room4c.addExit(Direction.EAST, room5c);
-        room4c.addExit(Direction.SOUTH, room4d);
+        getRoom("room4c").addExit(Direction.WEST,  getRoom("room3c"));
+        getRoom("room4c").addExit(Direction.NORTH, getRoom("room4b"));
+        getRoom("room4c").addExit(Direction.EAST,  getRoom("room5c"));
+        getRoom("room4c").addExit(Direction.SOUTH, getRoom("room4d"));
 
-        room5c.addExit(Direction.WEST, room4c);
-        room5c.addExit(Direction.NORTH, room5b);
-        room5c.addExit(Direction.EAST, room6c);
-        room5c.addExit(Direction.SOUTH, room5d);
+        getRoom("room5c").addExit(Direction.WEST,  getRoom("room4c"));
+        getRoom("room5c").addExit(Direction.NORTH, getRoom("room5b"));
+        getRoom("room5c").addExit(Direction.EAST,  getRoom("room6c"));
+        getRoom("room5c").addExit(Direction.SOUTH, getRoom("room5d"));
 
-        room6c.addExit(Direction.WEST, room5c);
-        room6c.addExit(Direction.NORTH, room6b);
-        room6c.addExit(Direction.EAST, room7c);
-        room6c.addExit(Direction.SOUTH, room6d);
+        getRoom("room6c").addExit(Direction.WEST,  getRoom("room5c"));
+        getRoom("room6c").addExit(Direction.NORTH, getRoom("room6b"));
+        getRoom("room6c").addExit(Direction.EAST,  getRoom("room7c"));
+        getRoom("room6c").addExit(Direction.SOUTH, getRoom("room6d"));
 
-        room7c.addExit(Direction.WEST, room6c);
-        room7c.addExit(Direction.NORTH, room7b);
-        room7c.addExit(Direction.EAST, room8c);
-        room7c.addExit(Direction.SOUTH, room7d);
+        getRoom("room7c").addExit(Direction.WEST,  getRoom("room6c"));
+        getRoom("room7c").addExit(Direction.NORTH, getRoom("room7b"));
+        getRoom("room7c").addExit(Direction.EAST,  getRoom("room8c"));
+        getRoom("room7c").addExit(Direction.SOUTH, getRoom("room7d"));
 
-        room8c.addExit(Direction.WEST, room7c);
-        room8c.addExit(Direction.NORTH, room8b);
-        room8c.addExit(Direction.EAST, room9c);
-        room8c.addExit(Direction.SOUTH, room8d);
+        getRoom("room8c").addExit(Direction.WEST,  getRoom("room7c"));
+        getRoom("room8c").addExit(Direction.NORTH, getRoom("room8b"));
+        getRoom("room8c").addExit(Direction.EAST,  getRoom("room9c"));
+        getRoom("room8c").addExit(Direction.SOUTH, getRoom("room8d"));
 
-        room9c.addExit(Direction.WEST, room8c);
-        room9c.addExit(Direction.NORTH, room9b);
-        room9c.addExit(Direction.SOUTH, room9d);
+        getRoom("room9c").addExit(Direction.WEST,  getRoom("room8c"));
+        getRoom("room9c").addExit(Direction.NORTH, getRoom("room9b"));
+        getRoom("room9c").addExit(Direction.SOUTH, getRoom("room9d"));
 
-        room1d.addExit(Direction.NORTH, room1c);
-        room1d.addExit(Direction.EAST, room2d);
-        room1d.addExit(Direction.SOUTH, room1e);
+        getRoom("room1d").addExit(Direction.NORTH, getRoom("room1c"));
+        getRoom("room1d").addExit(Direction.EAST,  getRoom("room2d'"));
+        getRoom("room1d").addExit(Direction.SOUTH, getRoom("room1e"));
 
-        room2d.addExit(Direction.WEST, room1d);
-        room2d.addExit(Direction.NORTH, room2c);
-        room2d.addExit(Direction.EAST, room3d);
-        room2d.addExit(Direction.SOUTH, room2e);
+        getRoom("room2d").addExit(Direction.WEST,  getRoom("room1d"));
+        getRoom("room2d").addExit(Direction.NORTH, getRoom("room2c"));
+        getRoom("room2d").addExit(Direction.EAST,  getRoom("room3d"));
+        getRoom("room2d").addExit(Direction.SOUTH, getRoom("room2e"));
 
-        room3d.addExit(Direction.WEST, room2d);
-        room3d.addExit(Direction.NORTH, room3c);
-        room3d.addExit(Direction.EAST, room4d);
-        room3d.addExit(Direction.SOUTH, room3e);
+        getRoom("room3d").addExit(Direction.WEST,  getRoom("room2d"));
+        getRoom("room3d").addExit(Direction.NORTH, getRoom("room3c"));
+        getRoom("room3d").addExit(Direction.EAST,  getRoom("room4d"));
+        getRoom("room3d").addExit(Direction.SOUTH, getRoom("room3e"));
 
-        room4d.addExit(Direction.WEST, room3d);
-        room4d.addExit(Direction.NORTH, room4c);
-        room4d.addExit(Direction.EAST, room5d);
-        room4d.addExit(Direction.SOUTH, room4e);
+        getRoom("room4d").addExit(Direction.WEST,  getRoom("room3d"));
+        getRoom("room4d").addExit(Direction.NORTH, getRoom("room4c"));
+        getRoom("room4d").addExit(Direction.EAST,  getRoom("room5d"));
+        getRoom("room4d").addExit(Direction.SOUTH, getRoom("room4e"));
 
-        room5d.addExit(Direction.WEST, room4d);
-        room5d.addExit(Direction.NORTH, room5c);
-        room5d.addExit(Direction.EAST, room6d);
-        room5d.addExit(Direction.SOUTH, room5e);
+        getRoom("room5d").addExit(Direction.WEST,  getRoom("room4d"));
+        getRoom("room5d").addExit(Direction.NORTH, getRoom("room5c"));
+        getRoom("room5d").addExit(Direction.EAST,  getRoom("room6d"));
+        getRoom("room5d").addExit(Direction.SOUTH, getRoom("room5e"));
 
-        room6d.addExit(Direction.WEST, room5d);
-        room6d.addExit(Direction.NORTH, room6c);
-        room6d.addExit(Direction.EAST, room7d);
-        room6d.addExit(Direction.SOUTH, room6e);
+        getRoom("room6d").addExit(Direction.WEST,  getRoom("room5d"));
+        getRoom("room6d").addExit(Direction.NORTH, getRoom("room6c"));
+        getRoom("room6d").addExit(Direction.EAST,  getRoom("room7d"));
+        getRoom("room6d").addExit(Direction.SOUTH, getRoom("room6e"));
 
-        room7d.addExit(Direction.WEST, room6d);
-        room7d.addExit(Direction.NORTH, room7c);
-        room7d.addExit(Direction.EAST, room8d);
-        room7d.addExit(Direction.SOUTH, room7e);
+        getRoom("room7d").addExit(Direction.WEST,  getRoom("room6d"));
+        getRoom("room7d").addExit(Direction.NORTH, getRoom("room7c"));
+        getRoom("room7d").addExit(Direction.EAST,  getRoom("room8d"));
+        getRoom("room7d").addExit(Direction.SOUTH, getRoom("room7e"));
 
-        room8d.addExit(Direction.WEST, room7d);
-        room8d.addExit(Direction.NORTH, room8c);
-        room8d.addExit(Direction.EAST, room9d);
-        room8d.addExit(Direction.SOUTH, room8e);
+        getRoom("room8d").addExit(Direction.WEST,  getRoom("room7d"));
+        getRoom("room8d").addExit(Direction.NORTH, getRoom("room8c"));
+        getRoom("room8d").addExit(Direction.EAST,  getRoom("room9d"));
+        getRoom("room8d").addExit(Direction.SOUTH, getRoom("room8e"));
 
-        room9d.addExit(Direction.WEST, room8d);
-        room9d.addExit(Direction.NORTH, room9c);
+        getRoom("room9d").addExit(Direction.WEST,  getRoom("room8d"));
+        getRoom("room9d").addExit(Direction.NORTH, getRoom("room9c"));
 
-        room1e.addExit(Direction.NORTH, room1d);
-        room1e.addExit(Direction.EAST, room2e);
+        getRoom("room1e").addExit(Direction.NORTH, getRoom("room1d"));
+        getRoom("room1e").addExit(Direction.EAST,  getRoom("room2e"));
 
-        room2e.addExit(Direction.WEST, room1e);
-        room2e.addExit(Direction.NORTH, room2d);
-        room2e.addExit(Direction.EAST, room3e);
+        getRoom("room2e").addExit(Direction.WEST,  getRoom("room1e"));
+        getRoom("room2e").addExit(Direction.NORTH, getRoom("room2d"));
+        getRoom("room2e").addExit(Direction.EAST,  getRoom("room3e"));
 
-        room3e.addExit(Direction.WEST, room2e);
-        room3e.addExit(Direction.NORTH, room3d);
-        room3e.addExit(Direction.EAST, room4e);
+        getRoom("room3e").addExit(Direction.WEST,  getRoom("room2e"));
+        getRoom("room3e").addExit(Direction.NORTH, getRoom("room3d"));
+        getRoom("room3e").addExit(Direction.EAST,  getRoom("room4e"));
 
-        room4e.addExit(Direction.WEST, room3e);
-        room4e.addExit(Direction.NORTH, room4d);
-        room4e.addExit(Direction.EAST, room5e);
+        getRoom("room4e").addExit(Direction.WEST,  getRoom("room3e"));
+        getRoom("room4e").addExit(Direction.NORTH, getRoom("room4d"));
+        getRoom("room4e").addExit(Direction.EAST,  getRoom("room5e"));
 
-        room5e.addExit(Direction.WEST, room4e);
-        room5e.addExit(Direction.NORTH, room5d);
-        room5e.addExit(Direction.EAST, room6e);
+        getRoom("room5e").addExit(Direction.WEST,  getRoom("room4e"));
+        getRoom("room5e").addExit(Direction.NORTH, getRoom("room5d"));
+        getRoom("room5e").addExit(Direction.EAST,  getRoom("room6e"));
 
-        room6e.addExit(Direction.WEST, room5e);
-        room6e.addExit(Direction.NORTH, room6d);
-        room6e.addExit(Direction.EAST, room7e);
+        getRoom("room6e").addExit(Direction.WEST,  getRoom("room5e"));
+        getRoom("room6e").addExit(Direction.NORTH, getRoom("room6d"));
+        getRoom("room6e").addExit(Direction.EAST,  getRoom("room7e"));
 
-        room7e.addExit(Direction.WEST, room6e);
-        room7e.addExit(Direction.NORTH, room7d);
-        room7e.addExit(Direction.EAST, room8e);
+        getRoom("room7e").addExit(Direction.WEST,  getRoom("room6e"));
+        getRoom("room7e").addExit(Direction.NORTH, getRoom("room7d"));
+        getRoom("room7e").addExit(Direction.EAST,  getRoom("room8e"));
 
-        room8e.addExit(Direction.WEST, room7e);
-        room8e.addExit(Direction.NORTH, room8d);
-        room8e.addExit(Direction.EAST, room9e);
+        getRoom("room8e").addExit(Direction.WEST,  getRoom("room7e"));
+        getRoom("room8e").addExit(Direction.NORTH, getRoom("room8d"));
+        getRoom("room8e").addExit(Direction.EAST,  getRoom("room9e"));
 
-        room9e.addExit(Direction.WEST, room8e);
-        room9e.addExit(Direction.NORTH, room9d);
+        getRoom("room9e").addExit(Direction.WEST,  getRoom("room8e"));
+        getRoom("room9e").addExit(Direction.NORTH, getRoom("room9d"));
     }
 
     public void populateRooms() {
-        Weapon sword = new Weapon("Divining Sword", 1000, 20, "Sword of the gods.", 10000, 20);
-        List<Item> items = new ArrayList<Item>();
-        items.add(sword);
-        Container chest = new Container("Chest", items);
         Weapon rock = new Weapon("Rock", 1, 1, "A rock", 5, 0);
         Item stick = new Item("Stick", 1, 1, "Stick");
+        Item steel = new Item("Steel", 1, 2, "A piece of steel");
         rock.setAbility(new IAbility() {
             public void activate(EntityLiving entityLiving) {
                 boolean full = entityLiving.getHP() == entityLiving.getMaxHP();
@@ -777,26 +785,27 @@ public class Zork implements Serializable {
                 Zork.getInstance().println("Your max HP has been increased by 20!");
             }
         });
-        ArrayList<Item> ingredients = new ArrayList<Item>(); //ArrayList contains the list of required ingredients
+        ArrayList<Item> ingredients = new ArrayList<>(); //ArrayList contains the list of required ingredients
         ingredients.add(rock); //Adding the rock as an ingredient
         ingredients.add(stick); //Adding the stick as an ingredient
         Weapon itemSpear = new Weapon("Spear", 10, 2, "A basic spear", 10, 0); //A new item, will be used as the product of the recipe
         Recipe spear = new Recipe(ingredients, itemSpear); //The recipe itself, with the ingredients and the product item as the arguments/
         recipes.put("spear", spear); //Register the recipe in the game. "arrow" is what the user will type after "Craft" to craft an arrow.
 
-        room0.addItem(rock);
-        room0.addItem(stick);
-        room1a.addItem(chest);
+        getRoom("room0").addItem(rock);
+        getRoom("room0").addItem(stick);
+        getRoom("room0").addItem(steel);
+        getRoom("room1a").addItem(steel);
 
         Enemy bear = new Enemy("Bear", 45, "Entering the edge of the wooded area you hear a crack and a bear appears from the bushes. Uh he looks hungry..");
         bear.setBaseDamage(20);
 
-        room9a.addCharacter(bear);
+        getRoom("room9a").addCharacter(bear);
 
         Enemy dragon = new Enemy("Dragon", 100, "Fin boss");
         dragon.setBaseDamage(35);
 
-        room8d.addCharacter(dragon);
+        getRoom("room8d").addCharacter(dragon);
 
         Enemy assassin = new Enemy("Assassin", 20, "Lookout you gon get stabbed");
 
@@ -811,12 +820,12 @@ public class Zork implements Serializable {
 
         Item lockPick = new Item("Lock Pick", 0, 1, "Picks locks");
         oldMan.addDeathDrop(lockPick);
-        room0.addCharacter(oldMan);
-        room1a.setRequiredItem(lockPick);
+        getRoom("room0").addCharacter(oldMan);
+        getRoom("room1a").setRequiredItem(lockPick);
         Enemy guard = new Enemy("Guard", 10, "Hey, how did you get out?!?");
         Weapon baton = new Weapon("Baton", 100, 5, "Security Baton", 3, 0);
         guard.getInventory().equip(InventorySlotType.RIGHT_HAND, baton);
-        room1a.addCharacter(guard);
+        getRoom("room1a").addCharacter(guard);
 
         Enemy bandit = new Enemy("Bandit", 20, "Huh? There you are!");
         Weapon dagger = new Weapon("Dagger", 20, 10, "A basic dagger", 15, 0);
@@ -824,7 +833,7 @@ public class Zork implements Serializable {
         bandit.getInventory().equip(InventorySlotType.RIGHT_HAND, dagger);
         bandit.addDeathDrop(porkChop);
 
-        room5c.addCharacter(bandit);
+        getRoom("room5c").addCharacter(bandit);
 
         Enemy banditchief = new Enemy("Bandit Chief", 35, "Ha You stand no chance, prepare to die!");
         Weapon warhammer = new Weapon("War Hammer", 20, 20, "A diabolical instrument of death", 25, 0);
@@ -832,7 +841,7 @@ public class Zork implements Serializable {
         Food magicApple = new Food("Magic Apple", 1, 50, "Heals 50 HP");
         banditchief.addDeathDrop(magicApple);
 
-        room5c.addCharacter(banditchief);
+        getRoom("room5c").addCharacter(banditchief);
 
         OnEnterRoomListener kill = new OnEnterRoomListener() {
             public void onEnter(Player player) {
@@ -841,26 +850,26 @@ public class Zork implements Serializable {
             }
         };
 
-        room1e.setOnEnterRoomListener(kill);
-        room7e.setOnEnterRoomListener(kill);
-        room7c.setOnEnterRoomListener(kill);
-        room1c.setOnEnterRoomListener(kill);
+        getRoom("room1e").setOnEnterRoomListener(kill);
+        getRoom("room7e").setOnEnterRoomListener(kill);
+        getRoom("room7c").setOnEnterRoomListener(kill);
+        getRoom("room1c").setOnEnterRoomListener(kill);
 
-        room5c.setOnEnterRoomListener(new OnEnterRoomListener() {
+        getRoom("room5c").setOnEnterRoomListener(new OnEnterRoomListener() {
             public void onEnter(Player player) {
-                if (room5c.hasCharacter("Bandit")) { //If the character is in the room (if it hasn't been killed yet)
-                    room5c.getCharacter("Bandit").attack(player); //attack the player
+                if (getRoom("room5c").hasCharacter("Bandit")) { //If the character is in the room (if it hasn't been killed yet)
+                    getRoom("room5c").getCharacter("Bandit").attack(player); //attack the player
                 }
-                if (room5c.hasCharacter("Bandit Chief")) { //If the character is in the room (if it hasn't been killed yet)
-                    room5c.getCharacter("Bandit Chief").attack(player); //attack the player
+                if (getRoom("room5c").hasCharacter("Bandit Chief")) { //If the character is in the room (if it hasn't been killed yet)
+                    getRoom("room5c").getCharacter("Bandit Chief").attack(player); //attack the player
                 }
             }
         });
 
-        room1a.setOnEnterRoomListener(new OnEnterRoomListener() {
+        getRoom("room1a").setOnEnterRoomListener(new OnEnterRoomListener() {
             public void onEnter(Player player) {
-                if (room1a.hasCharacter("Guard"))
-                    room1a.getCharacter("Guard").attack(player);
+                if (getRoom("room1a").hasCharacter("Guard"))
+                    getRoom("room1a").getCharacter("Guard").attack(player);
             }
         });
 

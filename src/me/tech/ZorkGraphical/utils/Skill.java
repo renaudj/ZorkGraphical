@@ -6,6 +6,8 @@ import java.io.Serializable;
  * Created by renaudj on 12/17/15.
  */
 public class Skill implements Serializable{
+    public static final Long serialVersionUID = 1L;
+
     private String name;
     private int level;
     private String description;

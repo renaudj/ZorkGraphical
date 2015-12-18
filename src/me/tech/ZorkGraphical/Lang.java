@@ -50,7 +50,7 @@ public class Lang {
     public static String r9b = "Sector 9b.\n";
     public static String r9c = "Sector 9c.\nA large, hidden cavern in the side of a mountain. It's harrow at the mouth of the cave, stalagmites and stalagtites forming.\nIf one travels the cluttered terrain, they can then discover the dark, open cave with tremendous space. The walls are moist and bats hang up at the top.";
     public static String r9d = "Sector 9d.\nDark purple and deep black splotches on the metal walls the air is almost not breathable, looking foward you can only see a few feet infront of you surrounded by a dense cloud of ash and smoke.";
-    public static String r9e = "Sector 9e.\nCongradulations. After stepping out into the open air your past suddenly hits you and as you read the initials on a rock you relize you were the one who constructed this diabolical labyrinth.";
+    public static String r9e = "Sector 9e.\nCongradulations. After stepping out into the open air your past suddenly hits you and as you read the initials on a rock you realize you were the one who constructed this diabolical labyrinth.";
 
 
 }
